@@ -19,18 +19,20 @@ nav {
     text-decoration: none;
     margin-left: 15px;
     font-size: 20px;
+    font-weight: 600;
     color: #1e90c2;
-    transition: color ease-in-out 300ms;
+    /* transition: 0.3s; */
 }
 
-.link:hover {
+/* .link:hover {
     color: #1b4388;
-}
+} */
 
 .active-link {
     text-decoration: none;
     margin-left: 15px;
     font-size: 20px;
-    transition: color ease-in-out 300ms;
+    font-weight: 600;
+    /* transition: 0.3s; */
     color: #1b4388;
 }

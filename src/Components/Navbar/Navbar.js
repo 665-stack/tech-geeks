@@ -1,40 +1,26 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import './Navbar.css'
+// import { NavLink } from "react-router-dom";
 import Logo from "../../Assests/Image/techgeeklogo.png";
 import "./Navbar.css";
-import { useLocation } from "react-router-dom";
+import CustomLink from "../CustomLink/CustomLink";
+
 
 const Navbar = () => {
-    const { pathname } = useLocation();
 
     return (
-        <nav
-            style={
-                pathname.includes("blog") ? { display: "none" } : { display: "flex" }
-            }
-        >
-            <div className='logo-container'>
-                <img src={Logo} alt='' />
+        <nav>
+
+            <div className="logo-container">
+                <img src={Logo} alt="Logo img" />
             </div>
-            <div className='link-container'>
-                <NavLink
-                    className={({ isActive }) => (isActive ? "active-link" : "link")}
-                    to='/'
-                >
-                    Home
-                </NavLink>
-                <NavLink
-                    className={({ isActive }) => (isActive ? "active-link" : "link")}
-                    to='/videos'
-                >
-                    Videos
-                </NavLink>
-                <NavLink
-                    className={({ isActive }) => (isActive ? "active-link" : "link")}
-                    to='/login'
-                >
-                    Login
-                </NavLink>
+            <div className="link-container">
+
+                <CustomLink className='link' to='/'>Home</CustomLink>
+
+                <CustomLink className='link' to='/videos'>Videos</CustomLink>
+                <CustomLink className='link' to='/login'>Login</CustomLink>
+
             </div>
         </nav>
     );
