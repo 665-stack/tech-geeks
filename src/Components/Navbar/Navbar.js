@@ -4,12 +4,18 @@ import './Navbar.css'
 import Logo from "../../Assests/Image/techgeeklogo.png";
 import "./Navbar.css";
 import CustomLink from "../CustomLink/CustomLink";
+import { useLocation } from "react-router-dom";
 
 
 const Navbar = () => {
 
+    const { pathname } = useLocation()
+    console.log(pathname);
+
     return (
-        <nav>
+        <nav style={
+            pathname.includes("blog") ? { display: "none" } : { display: 'flex' }
+        }>
 
             <div className="logo-container">
                 <img src={Logo} alt="Logo img" />
@@ -22,7 +28,7 @@ const Navbar = () => {
                 <CustomLink className='link' to='/login'>Login</CustomLink>
 
             </div>
-        </nav>
+        </nav >
     );
 };
 

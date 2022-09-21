@@ -36,3 +36,10 @@ nav {
     /* transition: 0.3s; */
     color: #1b4388;
 }
+
+@media (max-width: 640px) {
+
+    .logo-container {
+        display: none;
+    }
+}

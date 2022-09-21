@@ -3,7 +3,15 @@ import React from 'react';
 const Videos = () => {
     return (
         <div>
-            <h2>videos here</h2>
+            <h1>This is videos page</h1>
+            {/* <iframe
+                width='890'
+                height='500'
+                src='https://www.youtube.com/embed/XKfgdkcIUxw'
+                title='YouTube video player'
+                frameBorder='0'
+                allowFullScreen
+            ></iframe> */}
         </div>
     );
 };

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Blog from '../Blog/Blog';
 import './Home.css'
 
 const Home = () => {
@@ -7,11 +8,19 @@ const Home = () => {
     useEffect(() => {
         fetch("data.json")
             .then(res => res.json())
-            .then(data => setBlogs(data))
+            .then(data => {
+                setBlogs(data)
+                console.log(data);
+            })
     }, [])
     return (
-        <div>
-            <h1>Home is here brah!</h1>
+        <div className='blogs-container'>
+            {
+                blogs.map((blog, index) => (
+                    <Blog blog={blog} key={blog._id}></Blog>
+                )
+                )
+            }
         </div>
     );
 };
