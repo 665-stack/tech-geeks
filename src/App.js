@@ -1,6 +1,6 @@
+import { createContext, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Blog from './Components/Blog/Blog';
 import BlogDetails from './Components/BlogDetails/BlogDetails';
 import Home from './Components/Home/Home';
 import Login from './Components/Login/Login';
@@ -8,11 +8,14 @@ import Navbar from './Components/Navbar/Navbar';
 import NotFound from './Components/NotFound/NotFound';
 import Videos from './Components/Videos/Videos';
 
+export const BlogContext = createContext();
 
 function App() {
+  const [blogs, setBlogs] = useState([])
   return (
     // we can use here empty fragment(<></>) instant of div.
-    <>
+
+    <BlogContext.Provider value={[blogs, setBlogs]}>
       <Navbar></Navbar>
       <Routes>
 
@@ -27,7 +30,9 @@ function App() {
         <Route path='*' element={<NotFound></NotFound>}></Route>
 
       </Routes>
-    </>
+
+    </BlogContext.Provider>
+
   );
 }
 
