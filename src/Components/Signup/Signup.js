@@ -2,11 +2,16 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import auth from '../../Firebase/Firebase.init';
+import { useState } from 'react';
 
 const provider = new GoogleAuthProvider();
 
 const Signup = () => {
     const navigate = useNavigate();
+    const [email, setEmail] = useState({ value: "", error: "" })
+    const [password, setPassword] = useState({ value: "", error: "" })
+    const [confirmPassword, setConfirmPassword] = useState({ value: "", error: "" });
+    console.log(email);
 
     const googleAuth = () => {
         signInWithPopup(auth, provider)
@@ -19,6 +24,24 @@ const Signup = () => {
                 console.log(errorMessage)
             });
     }
+    const handleEmail = (emailInput) => {
+        if (/^\S+@\S+\.\S+$/.test(emailInput)) {
+            setEmail({ value: emailInput, error: "" })
+        }
+        else {
+            setEmail({ value: "", error: "Invaild email" })
+
+        }
+
+    }
+    const handlePassword = (passwordInput) => {
+        setPassword(passwordInput)
+    }
+    const handleConfirmPassword = (ConfirmPasswordInput) => {
+        setConfirmPassword(ConfirmPasswordInput)
+    }
+
+
     const handleSignUp = (e) => {
         e.preventDefault();
         const email = (e.target.email.value);
@@ -33,7 +56,6 @@ const Signup = () => {
                 const errorMessage = error.message;
                 console.log(errorMessage);
             });
-
     }
 
     return (
@@ -45,17 +67,17 @@ const Signup = () => {
                         <div className='input-field'>
                             <label htmlFor="email">Email</label>
                             <br />
-                            <input className='input' type="email" name="email" id="email" />
+                            <input className='input' type="email" name="email" id="email" onBlur={(event) => handleEmail(event.target.value)} />
                         </div>
                         <div className='input-field'>
                             <label htmlFor="password">Password</label>
                             <br />
-                            <input className='input' type="password" name="password" id="password" />
+                            <input className='input' type="password" name="password" id="password" onBlur={(event) => handlePassword(event.target.value)} />
                         </div>
                         <div className='input-field'>
                             <label htmlFor="confirm-password">Confirm Password</label>
                             <br />
-                            <input className='input' type="password" name="confirmPassword" id="confirm-password" />
+                            <input className='input' type="password" name="confirmPassword" id="confirm-password" onBlur={(event) => handleConfirmPassword(event.target.value)} />
                         </div>
                         <button type="submit" className='
             auth-form-submit'>
