@@ -35,7 +35,13 @@ const Signup = () => {
 
     }
     const handlePassword = (passwordInput) => {
-        setPassword(passwordInput)
+        if (passwordInput.length < 6) {
+            setPassword({ value: "", error: 'Password is too short' })
+        }
+        else {
+            setPassword({ value: passwordInput, error: "" })
+        }
+
     }
     const handleConfirmPassword = (ConfirmPasswordInput) => {
         setConfirmPassword(ConfirmPasswordInput)
@@ -68,11 +74,19 @@ const Signup = () => {
                             <label htmlFor="email">Email</label>
                             <br />
                             <input className='input' type="email" name="email" id="email" onBlur={(event) => handleEmail(event.target.value)} />
+                            {
+                                email?.error && <p className='error-msg'>{email.error}</p>
+                            }
                         </div>
+
+
                         <div className='input-field'>
                             <label htmlFor="password">Password</label>
                             <br />
                             <input className='input' type="password" name="password" id="password" onBlur={(event) => handlePassword(event.target.value)} />
+                            {
+                                password?.error && <p className='error-msg'>{password.error}</p>
+                            }
                         </div>
                         <div className='input-field'>
                             <label htmlFor="confirm-password">Confirm Password</label>
