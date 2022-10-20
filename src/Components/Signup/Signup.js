@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import auth from '../../Firebase/Firebase.init';
 
 const provider = new GoogleAuthProvider();
@@ -9,15 +9,31 @@ const Signup = () => {
     const navigate = useNavigate();
 
     const googleAuth = () => {
-
         signInWithPopup(auth, provider)
             .then((result) => {
                 const user = result.user;
                 console.log(user)
+                navigate('/')
             }).catch((error) => {
                 const errorMessage = error.message;
                 console.log(errorMessage)
             });
+    }
+    const handleSignUp = (e) => {
+        e.preventDefault();
+        const email = (e.target.email.value);
+        const password = (e.target.password.value);
+        // const confirmPassword = (e.target.confirmPassword.value);
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            });
+
     }
 
     return (
@@ -25,9 +41,9 @@ const Signup = () => {
             <div className="auth-form">
                 <div className="sec-auth-form">
                     <h1>Sign Up</h1>
-                    <form>
+                    <form onSubmit={handleSignUp}>
                         <div className='input-field'>
-                            <label className='email-lb' htmlFor="email">Email</label>
+                            <label htmlFor="email">Email</label>
                             <br />
                             <input className='input' type="email" name="email" id="email" />
                         </div>
