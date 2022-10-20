@@ -1,17 +1,10 @@
 import React from 'react';
-
+import './Videos.css'
 const Videos = () => {
     return (
-        <div>
-            <h1>This is videos page</h1>
-            {/* <iframe
-                width='890'
-                height='500'
-                src='https://www.youtube.com/embed/XKfgdkcIUxw'
-                title='YouTube video player'
-                frameBorder='0'
-                allowFullScreen
-            ></iframe> */}
+        <div className='video'>
+            <h1 className=''>There's no video to watch!</h1>
+
         </div>
     );
 };
