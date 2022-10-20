@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import auth from '../../Firebase/Firebase.init';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const provider = new GoogleAuthProvider();
 
@@ -54,7 +55,7 @@ const Signup = () => {
 
 
     const handleSignUp = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         if (email.value === "") {
             setEmail({ value: "", error: "Email is required" })
@@ -67,11 +68,18 @@ const Signup = () => {
             createUserWithEmailAndPassword(auth, email.value, password.value)
                 .then((userCredential) => {
                     const user = userCredential.user;
-                    console.log(user);
+                    toast.success('User Created', { id: 'success' })
+                    navigate('/');
                 })
                 .catch((error) => {
                     const errorMessage = error.message;
-                    console.log(errorMessage);
+                    if (errorMessage.includes("email-already-in-use")) {
+                        toast.error("User Already Exist", { id: "error" })
+                    }
+                    else {
+                        toast.error(errorMessage, { id: "error" })
+                    }
+
                 });
         }
         return;
