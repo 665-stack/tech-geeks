@@ -44,7 +44,12 @@ const Signup = () => {
 
     }
     const handleConfirmPassword = (ConfirmPasswordInput) => {
-        setConfirmPassword(ConfirmPasswordInput)
+        if (ConfirmPasswordInput === password.value) {
+            setConfirmPassword({ value: ConfirmPasswordInput, error: '' })
+        }
+        else {
+            setConfirmPassword({ value: "", error: 'Password Mismatched' })
+        }
     }
 
 
@@ -58,7 +63,7 @@ const Signup = () => {
             setPassword({ value: "", error: "Password is required" })
         }
 
-        if (email.value && password.value) {
+        if (email.value && password.value && confirmPassword.value) {
             createUserWithEmailAndPassword(auth, email.value, password.value)
                 .then((userCredential) => {
                     const user = userCredential.user;
@@ -102,6 +107,9 @@ const Signup = () => {
                             <label htmlFor="confirm-password">Confirm Password</label>
                             <br />
                             <input className='input' type="password" name="confirmPassword" id="confirm-password" onBlur={(event) => handleConfirmPassword(event.target.value)} />
+                            {
+                                confirmPassword?.error && <p className='error-msg'>{confirmPassword.error}</p>
+                            }
                         </div>
                         <button type="submit" className='
             auth-form-submit'>
