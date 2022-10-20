@@ -50,18 +50,28 @@ const Signup = () => {
 
     const handleSignUp = (e) => {
         e.preventDefault();
-        const email = (e.target.email.value);
-        const password = (e.target.password.value);
-        // const confirmPassword = (e.target.confirmPassword.value);
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                console.log(user);
-            })
-            .catch((error) => {
-                const errorMessage = error.message;
-                console.log(errorMessage);
-            });
+
+        if (email.value === "") {
+            setEmail({ value: "", error: "Email is required" })
+        }
+        if (password.value === "") {
+            setPassword({ value: "", error: "Password is required" })
+        }
+
+        if (email.value && password.value) {
+            createUserWithEmailAndPassword(auth, email.value, password.value)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log(user);
+                })
+                .catch((error) => {
+                    const errorMessage = error.message;
+                    console.log(errorMessage);
+                });
+        }
+        return;
+
+
     }
 
     return (
