@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import auth from '../../Firebase/Firebase.init';
@@ -20,13 +20,29 @@ const Login = () => {
                 console.log(errorMessage)
             });
     }
+    const handleLogIn = (e) => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            });
+
+    }
 
     return (
         <div className='auth-form-container'>
             <div className="auth-form">
                 <div className="sec-auth-form">
                     <h1>Login</h1>
-                    <form>
+
+                    <form onSubmit={handleLogIn}>
 
                         <div className='input-field'>
                             <label className='email-lb' htmlFor="email">Email</label>
