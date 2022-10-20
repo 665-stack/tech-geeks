@@ -1,8 +1,35 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import auth from '../../Firebase/Firebase.init';
+
+const provider = new GoogleAuthProvider();
 
 const Signup = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    const googleAuth = () => {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                // ...
+            }).catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                const email = error.customData.email;
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+                // ...
+            });
+    }
+
+
     return (
         <div className='auth-form-container'>
             <div className="auth-form">
@@ -40,7 +67,7 @@ const Signup = () => {
                         <div className="line-right"></div>
                     </div>
 
-                    <button className="google-auth">
+                    <button onClick={googleAuth} className="google-auth">
                         Continue with Google
                     </button>
 
